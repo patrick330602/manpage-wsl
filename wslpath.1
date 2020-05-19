@@ -1,0 +1,32 @@
+.TH "WSLPATH" "1" "DATEPLACEHOLDER" "1.0" "WSL User Manual"
+.SH NAME
+.B wslpath
+.SH SYNOPSIS
+.B wslusc
+.RB [ \-auwm ]
+.I PATH
+.SH DESCRIPTION
+This is a path converter built-in inside WSL.
+.SH OPTIONS
+.TP
+.B -a
+force result to absolute path format
+.TP
+.B -u
+translate from a Windows path to a WSL path (default)
+.TP
+.B -w
+translate from a WSL path to a Windows path
+.TP
+.B -m
+translate from a WSL path to a Windows path, with '/' instead of '\\'
+.SH EXAMPLES
+wslpath 'C:\\users' will print '/mnt/c/users' if your mount location for C Drive is at /mnt/c/
+.SH AUTHOR
+wslpath created by Microsoft;
+.PP
+WSL User Manual created by Patrick Wu <me@patrickwu.space>
+.SH REPORTING BUGS
+Report bugs to <https://github.com/microsoft/WSL/issues>
+.SH SEE ALSO
+wsl(7)
