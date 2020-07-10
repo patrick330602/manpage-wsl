@@ -6,13 +6,21 @@ DEST = dist
 DATETMP = $(shell date +%Y-%m-%d)
 VERTMP = 1.0
 
-all: wslpath
+OV_SOURCES:=wslpath.1 \
+	wsl.7 \
+	wsl2.7
 
-wslpath:
+.PHONY: $(OV_SOURCES)
+
+$(OV_SOURCES):
 	[ -d $(DEST) ] || mkdir $(DEST)
-	sed -e 's/DATEPLACEHOLDER/'$(DATETMP)'/' -e 's/VERSIONPLACEHOLDER/'$(VERTMP)'/' wslpath.1 > $(DEST)/wslpath.1.tmp
-	mv $(DEST)/wslpath.1.tmp $(DEST)/wslpath.1
-	gzip -f -q $(DEST)/wslpath.1
+	for s in $(OV_SOURCES); do \
+		sed -e 's/DATEPLACEHOLDER/'$(DATETMP)'/' -e 's/VERSIONPLACEHOLDER/'$(VERTMP)'/' $${s} > $(DEST)/$${s}.tmp; \
+		mv $(DEST)/$${s}.tmp $(DEST)/$${s}; \
+		gzip -f -q $(DEST)/$${s}; \
+	done
+
 
 install:
 	install -Dm 644 $(DEST)/*.1.gz -t $(DESTDIR)$(PREFIX)/share/man/man1
+	install -Dm 644 $(DEST)/*.7.gz -t $(DESTDIR)$(PREFIX)/share/man/man7
